@@ -28,7 +28,7 @@ node['user']['user_array_node_attr'].split("/").each do |hash_key|
   user_array = user_array.send(:[], hash_key)
 end
 
-# only manage the subset of users defined
+# only manage the subset of users definedx
 Array(user_array).each do |i|
   u = data_bag_item(bag, i.gsub(/[.]/, '-'))
   username = u['username'] || u['id']
@@ -40,7 +40,11 @@ Array(user_array).each do |i|
     end
     action Array(u['action']).map { |a| a.to_sym } if u['action']
   end
+end
 
+Array(user_array).each do |i|
+  u = data_bag_item(bag, i.gsub(/[.]/, '-'))
+  username = u['username'] || u['id']
   unless u['groups'].nil? || u['action'] == 'remove'
     u['groups'].each do |groupname|
       group groupname do
